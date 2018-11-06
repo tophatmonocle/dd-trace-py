@@ -21,7 +21,7 @@ PATCH_MODULES = {
     'asyncio': False,
     'boto': True,
     'botocore': True,
-    'bottle': False,
+    'bottle': True,
     'cassandra': True,
     'celery': True,
     'elasticsearch': True,
@@ -36,24 +36,27 @@ PATCH_MODULES = {
     'pymemcache': True,
     'pymongo': True,
     'redis': True,
-    'requests': False,  # Not ready yet
-    'sqlalchemy': False,  # Prefer DB client instrumentation
+    'requests': True,
+    'sqlalchemy': True,
     'sqlite3': True,
     'aiohttp': True,  # requires asyncio (Python 3.4+)
     'aiopg': True,
-    'aiobotocore': False,
-    'httplib': False,
+    'aiobotocore': True,
+    'httplib': True,
     'vertica': True,
     'jinja2': True,
-
+    'kombu': False,
+  
     # Even though instrumentation for web frameworks can be installed manually,
     # instrumenting should be done idempotently
     'django': True,
     'falcon': True,
+    'flask': True,
+    'pyramid': True,
+    'pylons': True,
+
     # Ignore some web framework integrations that might be configured explicitly in code
     "flask": False,
-    "pylons": False,
-    "pyramid": False,
 }
 
 _LOCK = threading.Lock()
@@ -66,6 +69,7 @@ _PATCHED_MODULES = set()
 # DEV: <contrib name> => <list of module names that trigger a patch>
 _PATCH_ON_IMPORT = {
     'celery': ('celery', ),
+    'flask': ('flask, '),
     'gevent': ('gevent', ),
     'requests': ('requests', ),
 }
